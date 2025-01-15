@@ -1,0 +1,107 @@
+<div class="body">
+  <div class="form-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Join Us</h2>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Username"
+        />
+        <div class="msg" *ngIf="username?.invalid && username?.touched">
+          Username is required.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+        <div class="msg" *ngIf="password?.invalid && password?.touched">
+          Password is required.
+        </div>
+      </div>
+
+      <!-- Re-type Password -->
+      <div class="form-group">
+        <label for="re_password">Re-type Password</label>
+        <input
+          type="password"
+          id="re_password"
+          formControlName="re_password"
+          placeholder="Re-type password"
+          [pattern]="password?.value"
+        />
+        <div class="msg" *ngIf="re_password?.invalid && re_password?.touched">
+          <span *ngIf="re_password?.errors?.['required']">Re-write the password.</span>
+          <span *ngIf="re_password?.errors?.['pattern']">Passwords do not match.</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter email"
+        />
+        <div class="msg" *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">Email is required.</span>
+          <span *ngIf="email?.errors?.['email']">Invalid email format.</span>
+        </div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input
+          type="tel"
+          id="mobile"
+          formControlName="mobile"
+          placeholder="Mobile Number"
+          pattern="^[0-9]{11}$"
+        />
+        <div class="msg" *ngIf="mobile?.invalid && mobile?.touched">
+          <span *ngIf="mobile?.errors?.['required']">Mobile number is required.</span>
+          <span *ngIf="mobile?.errors?.['pattern']">Mobile number must be 11 digits.</span>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          placeholder="Enter address"
+        />
+        <div class="msg" *ngIf="address?.invalid && address?.touched">
+          Address is required.
+        </div>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="form-group-inline">
+        <input type="checkbox" id="terms" formControlName="terms" required />
+        <label for="terms">Agree to terms and conditions</label>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group text-center">
+        <button type="submit" [disabled]="registerForm.invalid">Create Account</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<form [formGroup]="productForm" (ngSubmit)="addNewProduct()">
+    <!-- Product ID -->
+    <div>
+      <label for="id">Product ID</label>
+      <input id="id" formControlName="id" />
+    </div>
+  
+    <!-- Existing Fields -->
+    <!-- Name -->
+    <div>
+      <label for="name">Product Name</label>
+      <input id="name" formControlName="name" />
+    </div>
+  
+    <!-- Category -->
+    <div>
+      <label for="category">Category</label>
+      <select
+        id="category"
+        formControlName="category"
+        (change)="getSubCategories($event)"
+      >
+        <option *ngFor="let category of categories" [value]="category._id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+  
+    <!-- SubCategory -->
+    <div>
+      <label for="subCategory">SubCategory</label>
+      <select id="subCategory" formControlName="subCategory">
+        <option
+          *ngFor="let subCategory of subCategories"
+          [value]="subCategory._id"
+        >
+          {{ subCategory.name }}
+        </option>
+      </select>
+    </div>
+  
+    <!-- Price -->
+    <div>
+      <label for="price">Price</label>
+      <input id="price" formControlName="price" type="number" />
+    </div>
+  
+    <!-- Description -->
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+  
+    <!-- Image -->
+    <div>
+  
+          <label for="image">Image</label>
+          <input id="image" type="file" (change)="onFileChange($event)" />
+        </div>
+        
+    
+  
+  
+    <!-- Is In Stock -->
+    <div>
+      <label>
+        <input type="checkbox" formControlName="isInStock" />
+        Is In Stock
+      </label>
+    </div>
+  
+    <!-- Is Deleted -->
+    <div>
+      <label>
+        <input type="checkbox" formControlName="isDeleted" />
+        Is Deleted
+      </label>
+    </div>
+  
+    <!-- Is Best Seller -->
+    <div>
+      <label>
+        <input type="checkbox" formControlName="isBestSeller" />
+        Is Best Seller
+      </label>
+    </div>
+    <button type="submit" [disabled]="productForm.invalid">Add Product</button>
+  </form>
+  

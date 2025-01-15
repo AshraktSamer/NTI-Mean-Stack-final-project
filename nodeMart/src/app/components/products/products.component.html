@@ -1,0 +1,105 @@
+<div class="mb-3">
+  <label for="category" class="form-label">Choose a Category:</label>
+  <select
+    class="form-select"
+    id="category"
+    [(ngModel)]="categoryId"
+    (change)="filterProducts()"
+  >
+  <option value="" selected>All Categories</option>
+  <option *ngFor="let cat of categories" [value]="cat._id">
+      {{ cat.name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <label for="subCategory" class="form-label">Choose a Subcategory:</label>
+  <select
+    class="form-select"
+    id="subCategory"
+    [(ngModel)]="subCategoryId"
+    (change)="filterProducts()"
+    [disabled]="!categoryId"
+  >
+    <option value="" selected>All Subcategories</option>
+    <option
+      *ngFor="let subCategory of filteredSubCategories"
+      [value]="subCategory._id"
+    >
+      {{ subCategory.name }}
+    </option>
+  </select>
+</div>
+
+<div *ngFor="let product of filteredProductList">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4 col-xl-6">
+        <div class="card text-black" style="background-color: #c7c8cc">
+          <img
+            [src]="'http://localhost:4000/uploads/' + product.image"
+            alt="Product Image"
+            Box="#27374D"
+            class="card-img-top"
+          />
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="text-muted mb-4">{{ product.description }}</p>
+              <p class="text-muted mb-4">
+                {{ product.category.name }} : {{ product.subCategory.name }}
+              </p>
+              <p class="text-muted mb-4"></p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <span>{{ product.price | currency : "USD" }}</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <a
+                Box
+                name=""
+                id="buyBox"
+                class="btn btn-secondary"
+                role="button"
+                style="
+                  background-color: #79797d;
+                  color: white;
+                  border: 15px;
+                  margin: 5px;
+                "
+                >add to cart</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="pagination-controls">
+    <!-- Previous Page -->
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+
+    <!-- Page Numbers -->
+    <span *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button
+        (click)="goToPage(i + 1)"
+        [class.active]="currentPage === i + 1"
+      >
+        {{ i + 1 }}
+      </button>
+    </span>
+
+    <!-- Next Page -->
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>

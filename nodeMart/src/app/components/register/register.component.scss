@@ -1,0 +1,107 @@
+.body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f8fa;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  
+  .form-container {
+    background-color: #B4B4B8;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: 24px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #fffdfd;
+  }
+  
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .form-group-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group-inline label {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+.msg{
+  color: red;
+  font-size: small;
+}
+// span{
+//   color: red;
+// }
+
+
+input.ng-invalid.ng-touched{
+  border : 1px  solid red;
+}

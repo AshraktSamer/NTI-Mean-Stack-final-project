@@ -1,0 +1,23 @@
+.container-fluid{
+  background-color: #B4B4B8;
+}
+.btn{
+  background-color: #C7C8CC;
+  color: black;
+  border-color: #C7C8CC   ;
+}
+.container-fluid{
+  height: 75px;
+}
+
+.btn:hover{
+  background-color: #4a4a4a;
+}
+
+.nav-link.active {
+  color: #300b02 !important; /* Use !important if Bootstrap styles are overriding */
+}
+
+a{
+  color: #ffffff;
+}

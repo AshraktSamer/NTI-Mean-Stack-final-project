@@ -1,0 +1,63 @@
+
+.sidebar-container {
+  position: relative; /* Makes the button positioned relative to the container */
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #B4B4B8;
+  height: 100%;
+  overflow: auto;
+  position: relative; /* Ensure it's within the container */
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%); /* Slide the sidebar out */
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #79797d;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #79797d;
+  color: white;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  position: absolute; /* Allow dynamic positioning */
+  top: 10px;
+  left: 10px; /* Default position when outside the sidebar */
+  background-color: #B4B4B8;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, left 0.3s;
+}
+
+.toggle-btn.within-sidebar {
+  left: 210px; /* Move inside the sidebar (200px + 10px margin) */
+}
+
+.toggle-btn:hover {
+  background-color: #79797d;
+}
+

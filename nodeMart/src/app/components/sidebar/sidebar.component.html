@@ -1,0 +1,20 @@
+  
+   <div class="sidebar-container">
+    <!-- Sidebar -->
+    <div [class.sidebar]="true" [class.hidden]="!showSideBar">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/Product/update" routerLinkActive="active">update & delete Product</a>
+      <a routerLink="/product/add" routerLinkActive="active" >Add new Product</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+    </div>
+  
+    <!-- Toggle Button -->
+    <button
+      type="button"
+      class="btn btn-primary toggle-btn"
+      (click)="toggleSidebar()"
+      [class.within-sidebar]="showSideBar"
+    >
+      <i class="bx bx-sidebar"></i>
+    </button>
+  </div>

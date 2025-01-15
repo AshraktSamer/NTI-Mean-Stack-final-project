@@ -1,0 +1,32 @@
+select {
+    color: gray; /* Ensure text is visible */
+  }
+  
+  select option[value=""] {
+    color: gray; /* Style for placeholder text */
+  }
+
+
+  .pagination-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  
+    button {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background-color: white;
+      cursor: pointer;
+    }
+  
+    .active {
+      background-color: #007bff;
+      color: white;
+    }
+  
+    button:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+    }
+  }
+  
