@@ -12,9 +12,11 @@ router.post("/", upload.single("image"), productController.addNewProduct);
 
 router.delete("/:Id", productController.deleteProduct);
 
+router.post("/:Id", upload.single("image"), productController.postProduct);
+
+
 router.get("/category/:Id", productController.getProductsByCategory);
 
-router.post("/:Id", upload.single("image"), productController.postProduct);
 
 router.get("/subcategory/:subCategoryId", productController.getProductsBySubCategory );
 

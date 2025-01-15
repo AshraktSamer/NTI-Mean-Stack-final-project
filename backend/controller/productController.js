@@ -1,31 +1,26 @@
 const Product = require("../model/productModel");
 const SubCategory = require("../model/subCategoryModel");
 const Category = require("../model/categoryModel");
-
-const ReadData = require("../middleware/ReadDataFromDB");
-const AddData = require("../middleware/AddNewDataToDB");
 const PostData = require("../middleware/PostDataInDB");
 const DeleteData = require("../middleware/DeleteFromDB");
+const mongoose = require("mongoose");
+
 
 const getAllProducts = async (req, res) => {
   try {
     const { page = 1, limit = 5 } = req.query; 
 
-    // Parse page and limit to integers
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
 
-    // Fetch total count of products
     const totalProducts = await Product.countDocuments();
 
-    // Fetch paginated data
     const Data = await Product.find()
       .populate("category")
       .populate("subCategory")
       .skip((pageNumber - 1) * limitNumber) 
       .limit(limitNumber);
 
-    // Calculate total pages
     const totalPages = Math.ceil(totalProducts / limitNumber);
 
     return res.status(200).json({
@@ -45,8 +40,47 @@ const getAllProducts = async (req, res) => {
 };
 
 
-const addNewProduct = AddData("Product");
+const addNewProduct =  async (req, res) => {
+    try {
+
+
+        if (!req.file) {
+          return res
+            .status(400)
+            .json({ status: "failed", message: "No file uploaded" });
+        }
+        req.body.image = req.file.filename;
+        if (!mongoose.Types.ObjectId.isValid(req.body.category)) {
+          return res.status(400).json({ status: "failed", message: "Invalid category ID" , "Request body: ": req.body });
+
+        }
+    
+        if (!mongoose.Types.ObjectId.isValid(req.body.subCategory)) {
+          return res.status(400).json({ status: "failed", message: "Invalid subCategory ID" });
+        }
+
+        console.log("Request body: ", req.body);
+
+      
+        const NewProduct = await Product.create(req.body);
+        const populatedProduct = await Product.findById(NewProduct._id)
+      .populate('category', 'name') 
+      .populate('subCategory', 'name'); 
+  
+      res.status(201).json({ status: " success", Data: populatedProduct });
+    } catch (error) {
+      console.log(`error occured while creating new product : ${error}`);
+      res
+        .status(500)
+        .json({
+          status: " failed",
+          msg: "error occured while creating new product",
+          Data: null,
+        });
+    }
+  };
 const postProduct = PostData("Product");
+
 const deleteProduct = DeleteData("Product");
 
 const getProductsBySubCategory = async (req, res) => {
@@ -225,7 +259,6 @@ const filterProducts = async (req, res) => {
     const query = {};
     if (req.query.categoryId) query.category = req.query.categoryId;
     if (req.query.subCategoryId) query.subCategory = req.query.subCategoryId;
-        // if (productId) query['_id'] = productId;
 
     const products = await Product.find(query)
     .populate('category', 'name')
