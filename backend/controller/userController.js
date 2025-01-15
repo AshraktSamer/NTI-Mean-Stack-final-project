@@ -11,13 +11,13 @@ const login = async (req, res) => {
 
   try {
     if (!email) {
-      res.status(404).json({
+     return res.status(404).json({
         Status: "failed",
         data: null,
         msg: " E-mail is required",
       });
     } else if (!password) {
-      res.status(404).json({
+      return res.status(404).json({
         Status: "failed",
         data: null,
         msg: " password is required",
@@ -25,7 +25,7 @@ const login = async (req, res) => {
     }
     const user = await User.findOne({ email: email }).populate("role");
     if (!user) {
-      res.status(404).json({
+    return  res.status(404).json({
         Status: "failed",
         data: null,
         msg: " user is not found",
@@ -82,7 +82,7 @@ const register = async (req, res, next) => {
         password: hashedPassword,
         mobile,
         adress,
-        role,
+        role: role || 'user', 
       });
 
       await newuser.save();
