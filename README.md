@@ -1,52 +1,84 @@
-# NTI-Mean-Stack-final-project
+# NTI Mean Stack Final Project
 
 This is the final project for the NTI MEAN Stack program. It is a full-stack web application that uses the MEAN stack (MongoDB, Express, Angular, Node.js). The project consists of both the backend (Node.js and Express) and frontend (Angular) applications.
 
-Project Overview
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
+- [Installation Instructions](#installation-instructions)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Project Overview
+
 This project is designed to manage a simple e-commerce platform. The backend is built with Node.js, Express, and MongoDB, while the frontend is built with Angular. The application allows users to interact with a variety of resources such as products, orders, and user authentication.
 
-Technologies Used
--Frontend:
+## Technologies Used
 
-Angular
-TypeScript
-HTML, CSS
-Angular CLI
-Backend:
+- **Frontend:**
+  - Angular
+  - TypeScript
+  - HTML, CSS
+  - Angular CLI
+  
+- **Backend:**
+  - Node.js
+  - Express.js
+  - MongoDB
+  - JWT Authentication
+  - Multer for file uploads
 
--Node.js
-Express.js
-MongoDB
-JWT Authentication
-Multer for file uploads
-Others:
+- **Others:**
+  - Git for version control
+  - Visual Studio Code (or your preferred code editor)
 
--Git for version control
-Visual Studio Code (or your preferred code editor)
+## Installation Instructions
 
-
-Installation Instructions
 To run this project locally, you'll need to set up both the backend and frontend applications. Follow the steps below.
 
-* Backend
- 1. Clone the repository: git clone https://github.com/AshraktSamer/NTI-Mean-Stack-final-project.git
-cd NTI-Mean-Stack-final-project
+### Backend
 
-2. Navigate to the backend directory: cd backend
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/AshraktSamer/NTI-Mean-Stack-final-project.git
+   cd NTI-Mean-Stack-final-project
 
 
-3. Install the required dependencies: npm install
+2. Navigate to the backend directory: 
+   ```bash
+   cd backend
+
+
+3. Install the required dependencies:
+   ```bash
+   npm install
 
 4. Set up environment variables: Create a .env file and configure your environment variables (e.g., database URL, JWT secret, etc.).
 
-5. Start the backend server: nodemon start app
+5. Start the backend server:
+   ```bash
+   nodemon start app
 
-* Frontend
-1. Navigate to the nodeMart (or frontend) directory: cd nodeMart
+### Frontend
 
-2. Install the frontend dependencies: npm install
 
-3. Run the Angular development server: ng serve
+1. Navigate to the nodeMart (or frontend) directory: 
+   ```bash
+    cd nodeMart
+
+2. Install the frontend dependencies:
+   ```bash
+   npm install
+
+3. Run the Angular development server: 
+   ```bash
+    ng serve
 
 
 Usage
