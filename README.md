@@ -10,9 +10,6 @@ This is the final project for the NTI MEAN Stack program. It is a full-stack web
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Overview
 
@@ -83,6 +80,10 @@ To run this project locally, you'll need to set up both the backend and frontend
 
 Usage
 Once both the backend and frontend servers are running:
+. Open the frontend in your browser at http://localhost:4200.
+. The backend API is accessible at http://localhost:5000 (or the port you've configured).
+. Use the app for managing products, placing orders, and managing user authentication.
+
 
 Open the frontend in your browser at http://localhost:4200.
 The backend API is accessible at http://localhost:4000 (or the port you've configured).
