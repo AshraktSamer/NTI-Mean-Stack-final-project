@@ -9,6 +9,7 @@ import { ApiCatgory } from '../../models/catgoryModel';
 
 import { Product } from '../../models/productsModel';
 import { BoxDirective } from '../../directive/box';
+import { CartService } from '../../services/cart.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 5;
+  products: Product[] = [];
 
 
 
@@ -37,6 +39,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private location: Location,
     private cdr: ChangeDetectorRef,
+    private cartservice: CartService
   ) { }
 
 
@@ -88,13 +91,12 @@ export class ProductsComponent implements OnInit, OnChanges {
 
 
   filterProducts(): void {
-    // Filter subcategories based on selected category
     if (this.categoryId) {
       this.filteredSubCategories = this.subCategories.filter(
         (subCategory) => subCategory.categoryId === this.categoryId
       );
     } else {
-      this.filteredSubCategories = [...this.subCategories]; // Show all subcategories if no category is selected
+      this.filteredSubCategories = [...this.subCategories]; 
     }
 
     const filterParams = {
@@ -155,6 +157,17 @@ export class ProductsComponent implements OnInit, OnChanges {
       this.fetchProducts();
     }
   }
-}
+
+  addToCart(product: Product): void {
+    const quantity = 1; 
+    this.cartservice.addToCart(product._id, quantity).subscribe(
+      (response) => {
+        console.log('Product added to cart:', response);
+      },
+      (error) => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
+  }}
 
 

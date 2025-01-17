@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const objectID = mongoose.Schema.Types.ObjectId
+const objectID = mongoose.Schema.Types.ObjectId;
 
 const cartSchema = new mongoose.Schema({
   userId: {
@@ -31,19 +31,18 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
-
 cartSchema.pre("save", async function (next) {
-  const Product = mongoose.model("Product"); 
+  const Product = mongoose.model("Product");
   let total = 0;
 
   for (let item of this.products) {
-    const product = await Product.findById(item.productId).select("price"); 
+    const product = await Product.findById(item.productId).select("price");
     if (product) {
       total += product.price * item.quantity;
     }
   }
 
-  this.totalAmount = total; 
+  this.totalAmount = total;
   this.updatedAt = Date.now();
   next();
 });

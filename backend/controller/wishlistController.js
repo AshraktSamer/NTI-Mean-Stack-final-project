@@ -2,7 +2,7 @@ const WishList = require("../model/wishlistModel");
 
 const addToWishlist = async (req, res) => {
   try {
-    const userId = req.user.userId; // Extracted from the token
+    const userId = req.user.userId; 
     const { productId } = req.body;
 
     const wishlist = await WishList.findOne({ userId });
@@ -35,19 +35,17 @@ const addToWishlist = async (req, res) => {
 
 const removeFromWishlist = async (req, res) => {
   try {
-    const userId = req.user.userId; // Extracted from the token
-    const { productId } = req.body; // Assuming the productId is sent in the body
+    const userId = req.user.userId; 
+    const { productId } = req.body; 
 
     const wishlist = await WishList.findOne({ userId });
 
     if (wishlist) {
-      // Check if the product exists in the wishlist
       const productIndex = wishlist.products.findIndex(
         (p) => p.productId.toString() === productId
       );
 
       if (productIndex > -1) {
-        // Remove the product from the wishlist
         wishlist.products.splice(productIndex, 1);
         await wishlist.save();
 

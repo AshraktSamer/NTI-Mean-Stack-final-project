@@ -11,8 +11,10 @@ import { PolicyComponent } from './components/policy/policy.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { authGuard } from './guards/auth.guards';
 import { AddProductComponent } from './components/add-product/add-product.component';
-import { UpdateProductComponent } from './components/updateDeleteProduct/update-product.component';
 import { AdminGuard } from './guards/adminGaurd';
+import { UpdateProductComponent } from './components/update-product/update-product.component';
+import { DeleteProductComponent } from './components/delete-product/delete-product.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
     {path:'' , component : MainLayoutComponentComponent , children:[
@@ -23,6 +25,8 @@ export const routes: Routes = [
         {path:'policy' , component: PolicyComponent},
         {path:'product/add' , component: AddProductComponent , canActivate:[ AdminGuard]},
         {path:'Product/update' , component: UpdateProductComponent , canActivate:[ AdminGuard]},
+        {path:'Products/delete' , component: DeleteProductComponent , canActivate:[ AdminGuard]},
+
 
 
 
@@ -36,7 +40,9 @@ export const routes: Routes = [
 
      {path: 'login' , component: LoginComponent},   
      {path: 'logout' , component: LoginComponent},
-     {path: 'checkout' , component: CheckoutComponent , canActivate:[ authGuard]},
+     {path: 'cart' , component: CartComponent , canActivate:[ authGuard]},
+     {path: 'Checkout' , component: CheckoutComponent , canActivate:[ authGuard]},
+
 
 
      {path: 'register' , component: RegisterComponent},

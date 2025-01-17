@@ -1,0 +1,30 @@
+<div class="cart-container">
+    <h2>Your Cart</h2>
+  
+    <div *ngIf="cart.products?.length; else emptyCart">
+      <div class="cart-item" *ngFor="let item of cart.products">
+        <div class="product-info">
+          <h4>{{ item.productId.name }}</h4>
+          <p>Price: {{ item.productId.price | currency }}</p>
+          <p>Quantity: 
+            <input
+              type="number"
+              [(ngModel)]="item.quantity"
+              (change)="updateQuantity(item.productId._id, item.quantity)"
+              min="1"
+            />
+          </p>
+        </div>
+        <button (click)="removeProduct(item.productId._id)">Remove</button>
+      </div>
+      <div class="cart-summary">
+        <h3>Total: {{ cart.totalAmount | currency }}</h3>
+        <button (click)="checkout()">Checkout</button>
+      </div>
+    </div>
+  
+    <ng-template #emptyCart>
+      <p>Your cart is empty!</p>
+    </ng-template>
+  </div>
+  

@@ -18,12 +18,10 @@
     try {
       const { categoryId } = req.params;
   
-      // Validate categoryId
       if (!mongoose.Types.ObjectId.isValid(categoryId)) {
         return res.status(400).json({ status: "error", message: "Invalid category ID" });
       }
   
-      // Find subcategories with the given categoryId
       const subcategories = await SubCategory.find({ categoryId }).populate("categoryId", "name");
   
       if (subcategories.length === 0) {
