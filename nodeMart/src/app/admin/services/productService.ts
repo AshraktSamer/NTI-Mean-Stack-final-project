@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Product, ProductPostResponse, ProductResponse } from '../models/productsModel';
+import { Product, ProductPostResponse, ProductResponse } from '../../shared/models/productsModel';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { environment } from '../../enviroment/enviroment';
-import { ApiCatgoryResponse } from '../models/catgoryModel';
-import { ApiSubCategory, ApiSubCategoryResponse } from '../models/subCatgoryMode';
+import { ApiCatgoryResponse } from '../../shared/models/catgoryModel';
+import { ApiSubCategory, ApiSubCategoryResponse } from '../../shared/models/subCatgoryMode';
+import { environment } from '../../../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'

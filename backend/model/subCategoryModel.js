@@ -2,12 +2,6 @@
   const objectID = mongoose.Schema.Types.ObjectId;
 
   const subcategorySchema = new mongoose.Schema({
-      id: {
-    type: Number,
-    required: true,
-    unique: false 
-    },
-
     name: {
       type: String,
       required: true,

@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { ProductsService } from '../../services/productService';
+import { ProductsService } from '../../../admin/services/productService';
 import { ApiSubCategory } from '../../models/subCatgoryMode';
 import { ApiCatgory } from '../../models/catgoryModel';
 
 import { Product } from '../../models/productsModel';
 import { BoxDirective } from '../../directive/box';
-import { CartService } from '../../services/cart.service';
+import { CartService } from '../../../user/services/cart.service';
 
 
 @Component({

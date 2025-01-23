@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Route, Router, RouterModule } from '@angular/router';
-import { ApiSubCategory } from '../../models/subCatgoryMode';
-import { ApiCatgory } from '../../models/catgoryModel';
+import { ApiSubCategory } from '../../../shared/models/subCatgoryMode';
+import { ApiCatgory } from '../../../shared/models/catgoryModel';
 import { ProductsService } from '../../services/productService';
-import { Product, ProductPostResponse } from '../../models/productsModel';
+import { Product, ProductPostResponse } from '../../../shared/models/productsModel';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 

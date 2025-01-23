@@ -1,20 +1,22 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { CustomLayoutComponentComponent } from './components/custom-layout/custom-layout';
-import { MainLayoutComponentComponent } from './components/main-layout/main-layout';
-import { ProductsComponent } from './components/products/products.component';
-import { AboutComponent } from './components/about/about.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { RegisterComponent } from './components/register/register.component';
-import { PolicyComponent } from './components/policy/policy.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { authGuard } from './guards/auth.guards';
-import { AddProductComponent } from './components/add-product/add-product.component';
-import { AdminGuard } from './guards/adminGaurd';
-import { UpdateProductComponent } from './components/update-product/update-product.component';
-import { DeleteProductComponent } from './components/delete-product/delete-product.component';
-import { CartComponent } from './components/cart/cart.component';
+import { MainLayoutComponentComponent } from './shared/components/main-layout/main-layout';
+import { UpdateProductComponent } from './admin/components/update-product/update-product.component';
+import { DeleteProductComponent } from './admin/components/delete-product/delete-product.component';
+import { HomeComponent } from './shared/components/home/home.component';
+import { LoginComponent } from './shared/components/login/login.component';
+import { ProductsComponent } from './shared/components/products/products.component';
+import { AboutComponent } from './shared/components/about/about.component';
+import { PolicyComponent } from './shared/components/policy/policy.component';
+import { AddProductComponent } from './admin/components/add-product/add-product.component';
+import { AdminGuard } from './admin/gaurds/adminGaurd';
+import { CartComponent } from './user/components/cart/cart.component';
+import { authGuard } from './user/guards/auth.guards';
+import { CheckoutComponent } from './user/components/checkout/checkout.component';
+import { RegisterComponent } from './shared/components/register/register.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './shared/components/user-layout/user-layout.component';
+import { ProfileComponent } from './user/components/profile/profile.component';
 
 export const routes: Routes = [
     {path:'' , component : MainLayoutComponentComponent , children:[
@@ -23,31 +25,32 @@ export const routes: Routes = [
         {path:'about' , component: AboutComponent},
         {path:'products' , component: ProductsComponent},
         {path:'policy' , component: PolicyComponent},
-        {path:'product/add' , component: AddProductComponent , canActivate:[ AdminGuard]},
-        {path:'Product/update' , component: UpdateProductComponent , canActivate:[ AdminGuard]},
-        {path:'Products/delete' , component: DeleteProductComponent , canActivate:[ AdminGuard]},
-
-
-
-
-        {path:'' , redirectTo: 'home' , pathMatch :'full'}, //default path
+        {path: 'login' , component: LoginComponent},   
+        {path: 'logout' , component: LoginComponent},
+        {path: 'register' , component: RegisterComponent},
+        {path:'' , redirectTo: 'home' , pathMatch :'full'}, 
         
     ]},
 
 
-    {path:'' , component : CustomLayoutComponentComponent , children:[
+    {path:'' , component : UserLayoutComponent , children:[
+        {path: 'profile' , component: ProfileComponent , canActivate:[ authGuard]},
+        {path: 'cart' , component: CartComponent , canActivate:[ authGuard]},
+        {path: 'Checkout' , component: CheckoutComponent , canActivate:[ authGuard]},
+    ]},
 
+    {path:'' , component : AdminLayoutComponent , children:[
 
-     {path: 'login' , component: LoginComponent},   
-     {path: 'logout' , component: LoginComponent},
-     {path: 'cart' , component: CartComponent , canActivate:[ authGuard]},
-     {path: 'Checkout' , component: CheckoutComponent , canActivate:[ authGuard]},
-
-
-
-     {path: 'register' , component: RegisterComponent},
-
-]},
+        {
+            path: 'products',
+            children: [
+              { path: 'add', component: AddProductComponent, canActivate: [AdminGuard] },
+              { path: 'update', component: UpdateProductComponent, canActivate: [AdminGuard] },
+              { path: 'delete', component: DeleteProductComponent, canActivate: [AdminGuard] }
+            ]
+          }
+        
+    ]},
 
 
     {path:'**' , component: NotFoundComponent},

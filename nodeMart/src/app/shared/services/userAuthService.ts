@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../enviroment/enviroment';
 import { User } from '../models/userModel';
+import { environment } from '../../../enviroment/enviroment';
 
 
 

@@ -4,6 +4,7 @@ import { UserAuthService } from '../../services/userAuthService';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [RouterLink , RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

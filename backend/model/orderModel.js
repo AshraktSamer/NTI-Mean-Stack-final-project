@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const objectID = mongoose.Schema.Types.ObjectId;
 
 const orderSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   customerId: {
     type: objectID,
     ref: "User", 
