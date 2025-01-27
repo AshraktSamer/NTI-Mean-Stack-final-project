@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const auth = require('../middleware/authen_author')
+
 
 const WishListContoller= require("../controller/wishlistController");
-const authenticate = require("../middleware/isAuthenticated");
 
-router.post("/", authenticate, WishListContoller.addToWishlist);
-router.delete("/", authenticate, WishListContoller.removeFromWishlist);
+router.post("/", auth.isAuthenticated, WishListContoller.addToWishlist);
+router.delete("/", auth.isAuthenticated, WishListContoller.removeFromWishlist);
 
 module.exports = router;

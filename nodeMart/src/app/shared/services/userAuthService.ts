@@ -12,30 +12,46 @@ import { environment } from '../../../enviroment/enviroment';
   providedIn: 'root'
 })
 export class UserAuthService {
-  private currentUser!: User;
+  private currentUser!: any;
+  private tokenSubject: BehaviorSubject<string | null>;
+  APIURL =`${environment.apiBaseUrl}/users/login`
+
 
   constructor( private _http:HttpClient , private _router:Router) { 
     const token = localStorage.getItem('accessToken')
-    if(token){
-      this.tokenSubject.next(token)
+    
+      this.tokenSubject = new BehaviorSubject<string | null>(token);
+      if(token){
+        this.decodeAndSetCurrentUser(token);
+
     }
   }
-  private tokenSubject:BehaviorSubject<string |null> = new BehaviorSubject<string | null> (null);
 
- APIURL =`${environment.apiBaseUrl}/users/login`
+
+
+  private decodeAndSetCurrentUser(token: string): void {
+    const decoded: any = jwtDecode(token);
+    this.currentUser = {
+      id: decoded.id,
+      email: decoded.email,
+      name: decoded.name,
+      role: decoded.userRole,
+    };
+    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+  }
+
 
 
  login(loginData: any): Observable<any> {
   return this._http.post<any>(this.APIURL, loginData).pipe(
     tap({
       next: (res) => {
-        this.currentUser = res.user;
-        localStorage.setItem('currentUser', JSON.stringify(this.currentUser)); 
         const token =res?.data?.token
         if(token){
-        localStorage.setItem('accessToken' , res?.data?.token?.token)
-        this.tokenSubject.next(token);
-      }
+          localStorage.setItem('accessToken', token);
+          this.tokenSubject.next(token);
+          this.decodeAndSetCurrentUser(token);
+        }
         console.log('Full Response:', res); 
         console.log('Status:', res.Status); 
         console.log('Message:', res.msg); 
@@ -46,58 +62,75 @@ export class UserAuthService {
   );
 }
 getUserRole(): string {
-  if (this.currentUser) {
-    return this.currentUser.role;
-  }
-  const storedUser = localStorage.getItem('currentUser');
-  if (storedUser) {
-    this.currentUser = JSON.parse(storedUser);
-    return this.currentUser.role;
-  }
-  return '';
+  return this.currentUser?.role || '';
 }
 
-
-
-getAccessToken():Observable<string | null>{
-  return this.tokenSubject.asObservable();
+logout(): void {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('currentUser');
+  this.tokenSubject.next(null);
+  this._router.navigate(['/login']);
 }
-
-
-logout(){
-  this.tokenSubject.next(null)
-  localStorage.removeItem('accessToken')
-  this._router.navigate(['/login']); 
-
-}
-
-isAuthunticated(): boolean{
-  return this.tokenSubject.value !== null;
-}
-
-decodeAccessToken(): any {
+isAuthenticated(): boolean {
   const token = this.tokenSubject.value;
-  console.log('Token to Decode:', token); 
   if (token) {
-    try {
-      const decoded = jwtDecode(token);
-      console.log('Decoded Token:', decoded); 
-      return decoded;
-    } catch (error) {
-      console.error('Decoding Error:', error);
-      return null;
-    }
+    const decoded: any = jwtDecode(token);
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp > now; // Check token expiration
   }
-  return null;
+  return false;
 }
 
 
+// getUserRole(): string {
+//   if (this.currentUser) {
+//     return this.currentUser.role;
+//   }
+//   const storedUser = localStorage.getItem('currentUser');
+//   if (storedUser) {
+//     this.currentUser = JSON.parse(storedUser);
+//     return this.currentUser.role;
+//   }
+//   return '';
+// }
 
-get isUserLogin(): boolean {
-  const loggedIn = this.tokenSubject.value !== null;
-  console.log('Is User Logged In:', loggedIn); 
-  return loggedIn;
-}
+
+
+
+// getAccessToken():Observable<string | null>{
+//   return this.tokenSubject.asObservable();
+// }
+
+
+
+
+// isAuthunticated(): boolean{
+//   return this.tokenSubject.value !== null;
+// }
+
+// decodeAccessToken(): any {
+//   const token = this.tokenSubject.value;
+//   console.log('Token to Decode:', token); 
+//   if (token) {
+//     try {
+//       const decoded = jwtDecode(token);
+//       console.log('Decoded Token:', decoded); 
+//       return decoded;
+//     } catch (error) {
+//       console.error('Decoding Error:', error);
+//       return null;
+//     }
+//   }
+//   return null;
+// }
+
+
+
+// get isUserLogin(): boolean {
+//   const loggedIn = this.tokenSubject.value !== null;
+//   console.log('Is User Logged In:', loggedIn); 
+//   return loggedIn;
+// }
 
 
 }

@@ -22,9 +22,7 @@ export class LoginComponent implements OnInit {
     this.authen.login(loginform.value).subscribe({
       
       next: ()=>  {this.router.navigate([`/product/add`])
-      console.log('Decoded Token:', this.authen.decodeAccessToken());
 
-      console.log('Is User Logged In:', this.authen.isUserLogin);  
       },
 
       error: (err) => console.error('Login failed:', err)
