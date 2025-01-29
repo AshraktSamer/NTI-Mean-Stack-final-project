@@ -13,22 +13,22 @@ const login = async (req, res) => {
     if (!email) {
      return res.status(404).json({
         Status: "failed",
-        data: null,
-        msg: " E-mail is required",
+        Data: null,
+        Msg: " E-mail is required",
       });
     } else if (!password) {
       return res.status(404).json({
         Status: "failed",
-        data: null,
-        msg: " password is required",
+        Data: null,
+        Msg: " password is required",
       });
     }
     const user = await User.findOne({ email: email }).populate("role");
     if (!user) {
     return  res.status(404).json({
         Status: "failed",
-        data: null,
-        msg: " user is not found",
+        Data: null,
+        Msg: " user is not found",
       });
     }
 
@@ -44,51 +44,53 @@ const login = async (req, res) => {
 
       return res.status(200).json({
         Status: "success",
-        msg: " user logged in successfully",
-        data: { email, name: user.name , userRole: user.role,  token: token  },
+        Msg: " user logged in successfully",
+        Data: { email, name: user.name },
+        Token: token ,
+        Role : user.role,
+
       });
     } else {
       return res.status(404).json({
         Status: "failed",
-        data: null,
-        msg: "not correct password",
+        Data: null,
+        Msg: "not correct password",
       });
     }
   } catch (error) {
     console.log(error);
     res.status(404).json({
       Status: "failed",
-      data: null,
-      msg: " error occured",
+      Data: null,
+      Msg: " error occured",
     });
   }
 };
 
 const register = async (req, res, next) => {
-  const { id, name, email, password, mobile, adress, role } = req.body;
+  const { name, email, password, mobile, adress, role } = req.body;
   const olduser = await User.findOne({ email: email });
   //e3mely validation hena 3 ID kman
   try {
     if (olduser) {
       res.status(404).json({
-        msg: "this email already exists",
+        Msg: "this email already exists",
       });
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newuser = new User({
-        id,
         name,
         email,
         password: hashedPassword,
         mobile,
         adress,
-        role: role || 'user', 
+        role: role || "User", 
       });
 
       await newuser.save();
       return res.status(201).json({
         Status: "success",
-        data: { newuser },
+        Data: newuser,
       });
     }
   } catch (error) {

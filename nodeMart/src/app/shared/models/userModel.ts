@@ -1,26 +1,25 @@
-export interface User {
-    id: number;
+export interface registerPayload {
     name: string;
     email: string;
     password: string;
     mobile: string;
     adress: string;
-    role: string; 
+    role?: string; 
 }
 
-export interface UserResponse {
-    status: string;
-    data: UserResponseData;
+export interface loginPayload {
+    email: string,
+    passowrd: string
 }
 
-export interface UserResponseData {
-    _id: string;
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    mobile: string;
-    adress: string;
-    role: string; 
-    __v: number;
+export interface UserApiResponse <T> {
+    Status?: string; 
+    Data?: T;
+    Token?: string
+    Role?: string
+    Msg?: string
+    Error?: string
 }
+
+
+

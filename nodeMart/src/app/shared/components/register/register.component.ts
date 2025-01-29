@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from '../../services/register.service';
 
@@ -11,25 +11,20 @@ import { RegisterService } from '../../services/register.service';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  registerForm!: FormGroup;
-  roles = ['user', 'admin'];
+  registerForm: FormGroup;
+  registerService = inject(RegisterService)
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: RegisterService // Inject the user service
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      re_password: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]+$')]],
-      email: ['', [Validators.required, Validators.email]],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-      address: ['', Validators.required],
-      role: ['user', Validators.required], 
-      terms: [false, Validators.requiredTrue]
+      name: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      re_password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9]+$')]),
+      email: new FormControl('', [Validators.required , Validators.email]) ,
+      mobile: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{11}$')]),
+      adress: new FormControl('', [Validators.required]),
     });
 
     this.registerForm.get('password')?.valueChanges.subscribe(() => {
@@ -37,45 +32,20 @@ export class RegisterComponent {
     });
   }
 
-  get username() {
-    return this.registerForm.get('username');
-  }
-  get password() {
-    return this.registerForm.get('password');
-  }
-  get re_password() {
-    return this.registerForm.get('re_password');
-  }
-  get email() {
-    return this.registerForm.get('email');
-  }
-  get mobile() {
-    return this.registerForm.get('mobile');
-  }
-  get address() {
-    return this.registerForm.get('address');
-  }
-  get terms() {
-    return this.registerForm.get('terms');
-  }
-  get role() {
-    return this.registerForm.get('role');
+  ngOnInit(): void {
+    
   }
 
-
-  onSubmit(): void {
-    if (this.registerForm.valid) {
-      this.userService.registerUser(this.registerForm.value).subscribe(
-        (response) => {
-          console.log('User created successfully', response);
-          this.router.navigate(['/login']);
-        },
-        (error) => {
-          console.error('Error creating user', error);
+  onSumbit(){
+    if(this.registerForm.valid){
+      console.log(this.registerForm.value)
+      this.registerService.Register(this.registerForm.value).subscribe({
+        next: (response)=>{
+          this.router.navigate(['/login'])
+          console.log(response)
         }
-      );
-    } else {
-      console.log('Form is invalid');
-    }
+      })  }
+  
   }
+
 }

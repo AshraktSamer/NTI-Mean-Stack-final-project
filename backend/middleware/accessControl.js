@@ -36,7 +36,7 @@ const isAdmin = async (req, res, next) => {
     }
 
     req.user = user;
-    // console.log(`amin : ${user}`)
+    // console.log(`user : ${user}`)
     next();
   } catch (error) {
     console.log(error)

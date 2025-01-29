@@ -9,12 +9,12 @@ module.exports = (modelName) => {
           .status(404)
           .json({ status: "failed", msg: `${modelName} not found` });
       }
-      const ID = Number(req.params.Id);
+      const ID = req.params.Id;
       if (modelName === "Product" && req.file) {
         req.body.image = req.file.filename;
       }
       const updatedData = await Model.findOneAndUpdate(
-        { id: ID },
+        { _id: ID },
         { $set: { ...req.body } },
         { new: true }
       );

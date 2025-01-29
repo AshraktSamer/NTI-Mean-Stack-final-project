@@ -1,6 +1,6 @@
 <div class="body">
   <div class="form-container">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSumbit()">
       <h2>Join Us</h2>
 
       <!-- Username -->
@@ -9,10 +9,11 @@
         <input
           type="text"
           id="username"
-          formControlName="username"
+          formControlName="name"
           placeholder="Username"
         />
-        <div class="msg" *ngIf="username?.invalid && username?.touched">
+        <div class="msg" *ngIf="registerForm.get('name')!.invalid && registerForm.get('name')!.touched">
+
           Username is required.
         </div>
       </div>
@@ -26,7 +27,7 @@
           formControlName="password"
           placeholder="Enter password"
         />
-        <div class="msg" *ngIf="password?.invalid && password?.touched">
+        <div class="msg" *ngIf="registerForm.get('password')!.invalid && registerForm.get('password')!.touched">
           Password is required.
         </div>
       </div>
@@ -39,11 +40,11 @@
           id="re_password"
           formControlName="re_password"
           placeholder="Re-type password"
-          [pattern]="password?.value"
+          [pattern]="registerForm.get('password')?.value"
         />
-        <div class="msg" *ngIf="re_password?.invalid && re_password?.touched">
-          <span *ngIf="re_password?.errors?.['required']">Re-write the password.</span>
-          <span *ngIf="re_password?.errors?.['pattern']">Passwords do not match.</span>
+        <div class="msg" *ngIf="registerForm.get('re_password')?.invalid && registerForm.get('re_password')?.touched">
+          <span *ngIf="registerForm.get('re_password')?.errors?.['required']">Re-write the password.</span>
+          <span *ngIf="registerForm.get('re_password')?.errors?.['pattern']">Passwords do not match.</span>
         </div>
       </div>
 
@@ -56,9 +57,9 @@
           formControlName="email"
           placeholder="Enter email"
         />
-        <div class="msg" *ngIf="email?.invalid && email?.touched">
-          <span *ngIf="email?.errors?.['required']">Email is required.</span>
-          <span *ngIf="email?.errors?.['email']">Invalid email format.</span>
+        <div class="msg" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</span>
         </div>
       </div>
 
@@ -72,9 +73,9 @@
           placeholder="Mobile Number"
           pattern="^[0-9]{11}$"
         />
-        <div class="msg" *ngIf="mobile?.invalid && mobile?.touched">
-          <span *ngIf="mobile?.errors?.['required']">Mobile number is required.</span>
-          <span *ngIf="mobile?.errors?.['pattern']">Mobile number must be 11 digits.</span>
+        <div class="msg" *ngIf="registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched">
+          <span *ngIf="registerForm.get('mobile')?.errors?.['required']">Mobile number is required.</span>
+          <span *ngIf="registerForm.get('mobile')?.errors?.['pattern']">Mobile number must be 11 digits.</span>
         </div>
       </div>
 
@@ -84,19 +85,19 @@
         <input
           type="text"
           id="address"
-          formControlName="address"
+          formControlName="adress"
           placeholder="Enter address"
         />
-        <div class="msg" *ngIf="address?.invalid && address?.touched">
+        <div class="msg" *ngIf="registerForm.get('adress')?.invalid && registerForm.get('adress')?.touched">
           Address is required.
         </div>
       </div>
 
       <!-- Checkbox -->
-      <div class="form-group-inline">
+      <!-- <div class="form-group-inline">
         <input type="checkbox" id="terms" formControlName="terms" required />
         <label for="terms">Agree to terms and conditions</label>
-      </div>
+      </div> -->
 
       <!-- Submit Button -->
       <div class="form-group text-center">

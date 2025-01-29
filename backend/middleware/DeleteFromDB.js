@@ -9,14 +9,15 @@ module.exports = (modelName) => {
           .status(404)
           .json({ status: "failed", msg: `${modelName} not found` });
       } else {
-        const ID = Number(req.params.Id);
+        const ID = req.params.Id;
+        // console.log(ID)
 
         if (!ID) {
           return res
             .status(400)
             .json({ status: "failed", msg: "ID parameter is required" });
         }
-        const deletedData = await Model.findOneAndDelete({ id :ID });
+        const deletedData = await Model.findOneAndDelete({ _id :ID });
 
         if (!deletedData) {
           return res

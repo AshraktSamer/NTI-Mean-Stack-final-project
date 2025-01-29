@@ -20,7 +20,7 @@ const addToCart = async (req, res) => {
       }
 
       await cart.save(); // Middleware will calculate totalAmount
-      return res.status(200).json({ message: "Product added to cart", cart });
+      return res.status(200).json({ Msg: "Product added to cart", cart });
     } else {
       const cartData = {
         userId,
@@ -31,11 +31,11 @@ const addToCart = async (req, res) => {
       await newCart.save(); // Middleware will calculate totalAmount
       return res
         .status(201)
-        .json({ message: "Cart created and product added", newCart });
+        .json({ Msg: "Cart created and product added", newCart });
     }
   } catch (error) {
     console.error("Error adding to cart:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ Msg: "Internal server error" });
   }
 };
 
