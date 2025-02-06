@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { UpdateProductComponent } from './admin/components/update-product/update-product.component';
-import { DeleteProductComponent } from './admin/components/delete-product/delete-product.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { ProductsComponent } from './shared/components/products/products.component';
@@ -57,9 +55,7 @@ export const routes: Routes = [
                 path: 'products',
                 children: [
                     { path: 'add', component: AddProductComponent, canActivate: [adminGuard] },
-                    { path: 'update', component: UpdateProductComponent, canActivate: [adminGuard] },
-                    { path: 'delete', component: DeleteProductComponent, canActivate: [adminGuard] }
-                ]
+                                ]
             }
 
         ]

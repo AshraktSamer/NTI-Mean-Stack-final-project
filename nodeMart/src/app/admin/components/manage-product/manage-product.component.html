@@ -1,0 +1,74 @@
+
+<h5 class="mb-4 fw-bold fs-5 text-dark">Product Details</h5>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate class="w-100">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name">
+    <div *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched" class="text-danger">
+      Name is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <input type="text" id="category" class="form-control" placeholder="Category" formControlName="category">
+    <div *ngIf="productForm.get('category')?.hasError('required') && productForm.get('category')?.touched" class="text-danger">
+      Category is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="subCategory" class="form-label">SubCategory</label>
+    <input type="text" id="subCategory" class="form-control" placeholder="SubCategory" formControlName="subCategory">
+    <div *ngIf="productForm.get('subCategory')?.hasError('required') && productForm.get('subCategory')?.touched" class="text-danger">
+      SubCategory is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input type="file" id="image" class="form-control" formControlName="image">
+    <div *ngIf="productForm.get('image')?.hasError('required') && productForm.get('image')?.touched" class="text-danger">
+      Image is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" id="description" class="form-control" placeholder="Description" formControlName="description">
+    <div *ngIf="productForm.get('description')?.hasError('required') && productForm.get('description')?.touched" class="text-danger">
+      Description is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input type="number" id="price" class="form-control" placeholder="Price" formControlName="price">
+    <div *ngIf="productForm.get('price')?.hasError('required') && productForm.get('price')?.touched" class="text-danger">
+      Price is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="quantity" class="form-label">Quantity</label>
+    <input type="number" id="quantity" class="form-control" placeholder="Quantity" formControlName="quantity">
+    <div *ngIf="productForm.get('quantity')?.hasError('required') && productForm.get('quantity')?.touched" class="text-danger">
+      Quantity is required
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="isBestSeller" class="form-label">Is Best Seller</label>
+    <input type="checkbox" id="isBestSeller" class="form-check-input" formControlName="isBestSeller">
+    <div *ngIf="productForm.get('isBestSeller')?.hasError('required') && productForm.get('isBestSeller')?.touched" class="text-danger">
+      This field is required
+    </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary w-100 w-sm-auto px-4 py-2">Submit</button>
+  <button type="button" (click)="onClose()" class="btn btn-secondary ms-2 w-100 w-sm-auto px-4 py-2">Cancel</button>
+</form>
+
+
+
+

@@ -17,9 +17,9 @@ module.exports = (modelName) => {
             .status(400)
             .json({ status: "failed", msg: "ID parameter is required" });
         }
-        const deletedData = await Model.findOneAndDelete({ _id :ID });
+        const Data = await Model.findOneAndDelete({ _id :ID });
 
-        if (!deletedData) {
+        if (!Data) {
           return res
             .status(404)
             .json({
@@ -27,7 +27,7 @@ module.exports = (modelName) => {
               msg: `No ${modelName} found with the specified ID`,
             });
         }
-        return res.status(200).json({ status: "success", deletedData });
+        return res.status(200).json({ status: "success", Data });
       }
     } catch (error) {
       console.log(`Error deleting data: ${error}`);

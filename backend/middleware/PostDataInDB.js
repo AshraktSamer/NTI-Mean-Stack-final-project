@@ -21,7 +21,7 @@ module.exports = (modelName) => {
       if (!updatedData) {
         res.status(404), json({ status: " falied", msg: " id not found" });
       } else {
-        res.status(201).json({ status: "success", data: updatedData });
+        res.status(201).json({ status: "success", Data: updatedData });
       }
     } catch (error) {
       console.log(`Error updating data: ${error}`);

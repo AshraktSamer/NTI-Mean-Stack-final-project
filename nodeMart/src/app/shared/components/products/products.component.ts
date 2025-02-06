@@ -4,12 +4,13 @@ import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ProductsService } from '../../../admin/services/productService';
-import { ApiSubCategory } from '../../models/subCatgoryMode';
-import { ApiCatgory } from '../../models/catgoryModel';
+import { SubCategory } from '../../../models/subCatgoryMode';
+import { Catgory } from '../../../models/catgoryModel';
 
-import { Product } from '../../models/productsModel';
+import { Product } from '../../../models/productsModel';
 import { BoxDirective } from '../../directive/box';
 import { CartService } from '../../../user/services/cart.service';
+import { catchError } from 'rxjs';
 
 
 @Component({
@@ -19,13 +20,13 @@ import { CartService } from '../../../user/services/cart.service';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit, OnChanges {
-  categories: ApiCatgory[] = [];
-  subCategories: ApiSubCategory[] = [];
-  filteredSubCategories: ApiSubCategory[] = [];
+  categories: Catgory[] = [];
+  subCategories: SubCategory[] = [];
+  filteredSubCategories: SubCategory[] = [];
   productList!: Product[];
-  filteredProductList: Product[] = []
-  categoryId!: string; // Bound to category dropdown
-  subCategoryId!: string; // Bound to subcategory dropdown
+  filteredProductList!: Product[] 
+  categoryId!: string; 
+  subCategoryId!: string; 
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 5;
@@ -61,33 +62,28 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.fetchProducts();
     this.filterProducts();
 
-    // this.productService.getAllProduct(this.currentPage, this.itemsPerPage).subscribe((response) => {
-    //   this.productList = response.Data ; 
-    //   this.filteredProductList = this.productList; 
-    //   console.log('getting all products', this.filteredProductList );
-
-
-
-    // });
-
 
   }
 
 
   fetchProducts(): void {
-    this.productService.getAllProduct(this.currentPage, this.itemsPerPage).subscribe(
-      (response) => {
-        console.log('API Response:', response);
-        this.productList = response.Data || [];
-        this.filteredProductList= this.productList
-        this.totalPages = Math.ceil(response.pagination.totalProducts / this.itemsPerPage); // Use totalProducts from pagination
-      },
-      (error) => {
-        console.error('Error fetching products:', error);
+    this.productService.getAllProduct().subscribe(
+      {
+        next: (response) => {
+          console.log('Get all product response:', response);
+          this.productList = response.Data || [];
+          this.filteredProductList = this.productList
+          //   if(response.pagination){
+          //   this.totalPages = Math.ceil(response.pagination?.totalPages / this.itemsPerPage); // Use totalProducts from pagination
+          // }},
+        },
+        error: (error) => {
+          console.error('Error fetching products:', error);
+        }
       }
     );
   }
-  
+
 
 
   filterProducts(): void {
@@ -96,7 +92,7 @@ export class ProductsComponent implements OnInit, OnChanges {
         (subCategory) => subCategory.categoryId === this.categoryId
       );
     } else {
-      this.filteredSubCategories = [...this.subCategories]; 
+      this.filteredSubCategories = [...this.subCategories];
     }
 
     const filterParams = {
@@ -104,34 +100,24 @@ export class ProductsComponent implements OnInit, OnChanges {
       subCategoryId: this.subCategoryId || '', // Pass an empty string if no subcategory is selected
     };
 
-    // Fetch filtered products from the API
+
     this.productService.filterProducts(filterParams).subscribe(
-      (response: any) => {
-        console.log('API Response:', response); // Debugging API response
-        this.filteredProductList = response.data || []; // Use response.data if it exists
-        console.log('Updated Filtered Products:', this.filteredProductList); // Log the updated list
-        this.cdr.detectChanges(); // Trigger UI update
-      },
-      (error) => {
-        console.error('Error fetching filtered products:', error);
-        this.filteredProductList = [];
-      }
-    );
-    this.productService.filterProducts(filterParams).subscribe(
-      (response: any) => {
-        console.log('API Response:', response); // Debugging API response
-        this.filteredProductList = response.data || []; // Use response.data if it exists
-        console.log('Updated Filtered Products:', this.filteredProductList); // Log the updated list
-        this.cdr.detectChanges(); // Trigger UI update
-      },
-      (error) => {
-        console.error('Error fetching filtered products:', error);
-        this.filteredProductList = [];
+      {
+        next: (response: any) => {
+          console.log('filtered product response :', response);
+          this.filteredProductList = response.Data || []; 
+          console.log('Updated Filtered Products:', this.filteredProductList);
+    
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('Error fetching filtered products:', error);
+          this.filteredProductList = [];
+        }
       }
     );
     //  this.filteredProductList = this.filteredSubCategories 
 
-    // Debugging: log current state
     console.log('Filtered Subcategories:', this.filteredSubCategories);
     console.log('Filtered Products:', this.filteredProductList);
   }
@@ -159,7 +145,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   addToCart(product: Product): void {
-    const quantity = 1; 
+    const quantity = 1;
     this.cartservice.addToCart(product._id, quantity).subscribe(
       (response) => {
         console.log('Product added to cart:', response);
@@ -168,6 +154,7 @@ export class ProductsComponent implements OnInit, OnChanges {
         console.error('Error adding product to cart:', error);
       }
     );
-  }}
+  }
+}
 
 

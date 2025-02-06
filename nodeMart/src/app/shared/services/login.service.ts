@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { loginPayload, UserApiResponse } from '../models/userModel';
+import { loginPayload, UserApiResponse } from '../../models/userModel';
 import { environment } from '../../../enviroment/enviroment';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';

@@ -7,7 +7,7 @@ import { DashboardComponent } from "../../../admin/components/dashboard/dashboar
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [HeaderComponent, FooterComponent, SidebarComponent, RouterOutlet, DashboardComponent],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet, DashboardComponent],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss'
 })

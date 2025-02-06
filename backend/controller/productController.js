@@ -18,8 +18,8 @@ const getAllProducts = async (req, res) => {
     const Data = await Product.find()
       .populate("category")
       .populate("subCategory")
-      .skip((pageNumber - 1) * limitNumber) 
-      .limit(limitNumber);
+      // .skip((pageNumber - 1) * limitNumber) 
+      // .limit(limitNumber);
 
     const totalPages = Math.ceil(totalProducts / limitNumber);
 
@@ -270,7 +270,7 @@ const filterProducts = async (req, res) => {
 
     return res.status(200).json({
       status: 'success',
-      data: products,
+      Data: products,
     });
   } catch (error) {
     console.error('Error filtering products:', error);
@@ -280,6 +280,10 @@ const filterProducts = async (req, res) => {
     });
   }
 };
+
+
+
+
 
 
 module.exports = {

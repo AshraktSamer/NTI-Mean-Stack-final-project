@@ -27,12 +27,8 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  isInStock: {
-    type: Boolean,
-    required: true,
-  },
-  isDeleted: {
-    type: Boolean,
+  quantity: {
+    type: Number,
     required: true,
   },
   isBestSeller: {
@@ -42,3 +38,7 @@ const productSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Product", productSchema);
+
+
+
+
